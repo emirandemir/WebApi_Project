@@ -11,5 +11,7 @@ namespace WebApi_Project.Data
         public decimal Price { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public string ImagePath { get; set; }
+        public int? CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }
