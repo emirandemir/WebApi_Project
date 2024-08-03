@@ -32,10 +32,19 @@ namespace WebApi_Project
 
             services.AddDbContext<Context>(opt =>
             {
-            opt.UseSqlServer(Configuration.GetConnectionString("Local"));
+                opt.UseSqlServer(Configuration.GetConnectionString("Local"));
             });
 
-            services.AddScoped<IProductRepository,ProductRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddCors(cors =>
+            {
+                cors.AddPolicy("ApiPolicy", opt =>
+                {
+                    opt.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader(); //Api her metot tarafýndan her origin tarafýndan ve her header tarafýndan tüketilebilir.
+                });
+                
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -57,6 +66,8 @@ namespace WebApi_Project
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors("ApiPolicy");
 
             app.UseAuthorization();
 
