@@ -1,0 +1,38 @@
+﻿@model List<ConsumeAPI_Project.ResponseModel.ProductResponseModel>
+<html>
+
+    <head>
+        <title>Wep Api Consume</title>
+    </head>
+
+
+
+
+    <body>
+
+    <a asp-action="Create" asp-controller="Home">Yeni Ürün Ekle</a>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+
+       
+            @foreach(var products in Model)
+            {
+        <tr>
+                <td>@products.ID</td>
+                <td>@products.Name</td>
+                <td>@products.Price</td>
+        </tr>
+            }
+            
+        
+    </table>
+
+        
+    </body>
+
+
+</html>
