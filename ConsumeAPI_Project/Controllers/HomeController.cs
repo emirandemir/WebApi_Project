@@ -63,5 +63,56 @@ namespace ConsumeAPI_Project.Controllers
                 return View(model);
             }
         }
+
+
+        public async Task<IActionResult> Update(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync($"http://localhost:24590/api/products/{id}");
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<ProductResponseModel>(jsonData);
+                return View(data);
+            }
+
+            else
+            {
+                return View(null);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(ProductResponseModel product)
+        {
+
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(product);
+            var content = new StringContent(jsonData,Encoding.UTF8,"application/json");
+            var responseMessage = await client.PutAsync($"http://localhost:24590/api/products", content);
+
+            if(responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
+            else
+            {
+                return View(product);
+            }
+        }
+
+
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var client = _httpClientFactory.CreateClient();
+            await client.DeleteAsync($"http://localhost:24590/api/products/{id}");
+            return RedirectToAction("Index");
+           
+
+           
+        }
     }
 }
