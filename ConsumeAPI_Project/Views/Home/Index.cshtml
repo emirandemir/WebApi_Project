@@ -23,22 +23,27 @@
         </tr>
 
        
-            @foreach(var products in Model)
+        @if(Model != null)
+        {
+            @foreach (var products in Model)
             {
-        <tr>
-                
-                <td>@products.ID</td>
-                <td>@products.Name</td>
-                <td>@products.Price</td>
-                <td>@products.Stock</td>
-                <td>
-                    <a asp-action="Update" asp-controller="Home" asp-route-id="@products.ID">Güncelle</a>
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-controller="Home" asp-route-id="@products.ID">Sil</a>
-                </td>
-        </tr>
+                <tr>
+
+                    <td>@products.ID</td>
+                    <td>@products.Name</td>
+                    <td>@products.Price</td>
+                    <td>@products.Stock</td>
+                    <td>
+                        <a asp-action="Update" asp-controller="Home" asp-route-id="@products.ID">Güncelle</a>
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-controller="Home" asp-route-id="@products.ID">Sil</a>
+                    </td>
+                </tr>
             }
+        }
+
+            
             
         
     </table>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,6 +25,7 @@ namespace WebApi_Project.Controllers
         }
 
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -33,6 +35,7 @@ namespace WebApi_Project.Controllers
 
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
